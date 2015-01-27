@@ -6,7 +6,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
  
 @Path("/eligibility")
-public class MessageRestService {
+public class MessageRestService { 
 	
 	@GET
 	@Path("/{param}")

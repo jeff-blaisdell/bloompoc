@@ -8,7 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
-public class ClientApp {
+public class ClientApp { 
 
 	public static void main(String[] args) {
 		try {
