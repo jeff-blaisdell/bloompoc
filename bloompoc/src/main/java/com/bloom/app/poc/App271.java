@@ -106,7 +106,7 @@ public class App271 {
 		try {
 
 			ClientRequest request = new ClientRequest(
-					"http://localhost:8080/bloom-0.0.1-SNAPSHOT/rest/eligibility/hello%20world");
+					"http://localhost:8080/bloom-0.0.1-SNAPSHOT/rest/eligibility/b");
 			request.accept("application/json");
 			ClientResponse<String> response = request.get(String.class);
 
