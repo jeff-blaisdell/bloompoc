@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.5.xsd">
+
+    <medi:description name="Segment Definition 271 Response" version="1.0" />
+
+	<medi:delimiters segment="&#10;" field="*" component="^" sub-component="~" escape="?"/>
+
+	<medi:segments xmltag="Response271">
+
+		<medi:segment segcode="ISA" xmltag="interchangeControlHeader">
+			<medi:field xmltag="authorizationInformationQualifier" />
+			<medi:field xmltag="authorizationInformation" />
+			<medi:field xmltag="securityInformationQualifier" />
+			<medi:field xmltag="securityInformation" />
+			<medi:field xmltag="interchangeIDQualifierSender" />
+			<medi:field xmltag="interchangeSenderID" />
+			<medi:field xmltag="interchangeIDQualifierReceiver" />
+			<medi:field xmltag="interchangeReceiverID" />
+			<medi:field xmltag="interchangeDate" />
+			<medi:field xmltag="interchangeTime" />
+			<medi:field xmltag="interchangeControlStandardsIdentifier" />
+			<medi:field xmltag="interchangeControlVersionNumber" />
+			<medi:field xmltag="interchangeControlNumber" />
+			<medi:field xmltag="acknowledgmentRequested" />
+			<medi:field xmltag="usageIndicator" />
+			<medi:field xmltag="componentElementSeparator" />
+		</medi:segment>
+		
+		<medi:segment segcode="GS" xmltag="functionalGroupHeader">
+			<medi:field xmltag="functionalIdentifierCode" />
+			<medi:field xmltag="applicationSendersCode" />
+			<medi:field xmltag="applicationReceiversCode" />
+			<medi:field xmltag="date" />
+			<medi:field xmltag="time" />
+			<medi:field xmltag="groupControlNumber" />
+			<medi:field xmltag="responsibleAgencyCode" />
+			<medi:field xmltag="versionReleaseIndustryIdentifierCode" />
+		</medi:segment>
+		
+		<medi:segment segcode="ST" xmltag="transactionSetHeader">
+			<medi:field xmltag="transactionSetIdentifierCode" />
+			<medi:field xmltag="transactionSetControlNumber" />
+		</medi:segment>
+		
+		<medi:segment segcode="BHT" xmltag="beginningHierarchicalTransaction">
+			<medi:field xmltag="hierarchicalStructureCode" />
+			<medi:field xmltag="transactionSetPurposeCode" />
+			<medi:field xmltag="referenceIdentification" />
+			<medi:field xmltag="date" />
+			<medi:field xmltag="time" />
+			<medi:field xmltag="transactionTypeCode" />
+		</medi:segment>
+		
+		<medi:segment segcode="HL" xmltag="hierarchicalLevel">
+			<medi:field xmltag="hierarchicalIDNumber" />
+			<medi:field xmltag="hierarchicalParentIDNumber" />
+			<medi:field xmltag="hierarchicalLevelCode" />
+			<medi:field xmltag="hierarchicalChildCode" />
+			<medi:segment segcode="NM1" xmltag="individualOrOrganizationalName">
+				<medi:field xmltag="entityIdentifierCode" />
+				<medi:field xmltag="entityTypeQualifier" />
+				<medi:field xmltag="nameLastOrOrganizationName" />
+				<medi:field xmltag="nameFirst" />
+				<medi:field xmltag="nameMiddle" />
+				<medi:field xmltag="namePrefix" />
+				<medi:field xmltag="nameSuffix" />
+				<medi:field xmltag="identificationCodeQualifier" />
+				<medi:field xmltag="identificationCode" />
+			</medi:segment>
+			<medi:segment segcode="PER" xmltag="informationSourceContactInformation">
+				<medi:field xmltag="contactFunctionCode" />
+				<medi:field xmltag="name" />
+				<medi:field xmltag="communicationNumberQualifier" />
+				<medi:field xmltag="communicationNumber" />
+			</medi:segment>
+		</medi:segment>
+		
+
+		<medi:segment segcode="SE" xmltag="transactionSetTrailer">
+			<medi:field xmltag="numberOfIncludedSegments" />
+			<medi:field xmltag="transactionSetControlNumber" />
+		</medi:segment>
+		
+		<medi:segment segcode="GE" xmltag="functionalGroupTrailer">
+			<medi:field xmltag="numberOfTransactionSetsIncluded" />
+			<medi:field xmltag="groupControlNumber" />
+		</medi:segment>
+		
+		<medi:segment segcode="IEA" xmltag="interchangeControlTrailer">
+			<medi:field xmltag="numberOfIncludedFunctionalGroups" />
+			<medi:field xmltag="interchangeControlNumber" />
+		</medi:segment>
+
+	</medi:segments>
+	
+</medi:edimap>
