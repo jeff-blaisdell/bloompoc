@@ -21,13 +21,40 @@ import com.bloom.app.poc.model271.Response271;
 
 public class App271 {
 	
-	private byte[] messageIn = readInputMessage();
+	private byte[] messageIn;
 
 	private final Smooks smooks;
 
 	protected App271() throws IOException, SAXException {
 		// Instantiate Smooks with the config...
 		smooks = new Smooks("smooks-271-config.xml");
+	}
+	
+	public static void main(String[] args) throws IOException, SAXException, SmooksException {
+		App271 app = new App271();
+		app.processResponse271();
+	}
+	
+	private void processResponse271() throws SmooksException, IOException, SAXException {
+		
+		messageIn = readInputMessage();
+		
+		System.out.println("\n\n==============Message In==============");
+		System.out.println(new String(messageIn));
+		System.out.println("======================================\n");
+
+		pause("The EDI input stream can be seen above.  Press 'enter' to see how this stream is transformed the Order Object graph...");
+
+		ExecutionContext executionContext = smooks.createExecutionContext();
+		org.milyn.payload.JavaResult result = runSmooksTransform(executionContext);
+
+		System.out.println("\n==============EDI as Java Object Graph=============");
+		Response271 response = (Response271) result.getBean("response271");
+
+		System.out.println(response);
+		System.out.println("======================================\n\n");
+		System.out.println("DONE !!!\n\n");
+		
 	}
 
 	protected org.milyn.payload.JavaResult runSmooksTransform(
@@ -45,8 +72,7 @@ public class App271 {
 
 			// Filter the input message to the outputWriter, using the execution
 			// context...
-			smooks.filterSource(executionContext, new StreamSource(
-					new ByteArrayInputStream(messageIn)), javaResult);
+			smooks.filterSource(executionContext, new StreamSource(new ByteArrayInputStream(messageIn)), javaResult);
 
 			Locale.setDefault(defaultLocale);
 
@@ -56,57 +82,19 @@ public class App271 {
 		}
 	}
 
-	public static void main(String[] args) throws IOException, SAXException, SmooksException {
-		App271 app = new App271();
-		app.processResponse271();
-	}
-	
-	private void processResponse271() throws SmooksException, IOException, SAXException {
-		System.out.println("\n\n==============Message In==============");
-		System.out.println(new String(messageIn));
-		System.out.println("======================================\n");
-
-		pause("The EDI input stream can be seen above.  Press 'enter' to see how this stream is transformed the Order Object graph...");
-
-		ExecutionContext executionContext = smooks.createExecutionContext();
-		org.milyn.payload.JavaResult result = runSmooksTransform(executionContext);
-
-		System.out.println("\n==============EDI as Java Object Graph=============");
-		Response271 response = (Response271) result.getBean("response271");
-		System.out.println(response);
-		System.out.println("======================================\n\n");
-
-		pause("And that's it!  Press 'enter' to finish...");
-		
-	}
-
 	private byte[] readInputMessage() {
 		String response = hitRestService();
 		return response.getBytes();
 	}
-
-	private void pause(String message) {
-		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			System.out.print("> " + message);
-			in.readLine();
-		} catch (IOException e) {
-		}
-		System.out.println("\n");
-	}
-
-	public org.milyn.payload.JavaResult runSmooksTransform() throws IOException, SAXException {
-		ExecutionContext executionContext = smooks.createExecutionContext();
-		return runSmooksTransform(executionContext);
-	}
-
+	
 	private String hitRestService() {
 
 		StringBuffer output = new StringBuffer();
 		try {
 
 			ClientRequest request = new ClientRequest(
-					"http://localhost:8080/bloom-0.0.1-SNAPSHOT/rest/eligibility/b");
+					"http://ebjavasamplea-fsjrx-env.elasticbeanstalk.com/rest/eligibility/b");
+					//"http://localhost:8080/bloom-0.0.1-SNAPSHOT/rest/eligibility/b");
 			request.accept("application/json");
 			ClientResponse<String> response = request.get(String.class);
 
@@ -132,5 +120,20 @@ public class App271 {
 			e.printStackTrace();
 		}
 		return output.toString();
+	}
+
+	private void pause(String message) {
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("> " + message);
+			in.readLine();
+		} catch (IOException e) {
+		}
+		System.out.println("\n");
+	}
+
+	public org.milyn.payload.JavaResult runSmooksTransform() throws IOException, SAXException {
+		ExecutionContext executionContext = smooks.createExecutionContext();
+		return runSmooksTransform(executionContext);
 	}
 }

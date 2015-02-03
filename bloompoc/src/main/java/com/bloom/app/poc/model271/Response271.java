@@ -3,8 +3,6 @@ package com.bloom.app.poc.model271;
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-
 public class Response271 implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -86,7 +84,18 @@ public class Response271 implements Serializable {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append(interchangeControlHeader + "\n\n");
+		buffer.append(functionalGroupHeader + "\n\n");
+		buffer.append(transactionSetHeader + "\n\n");
+		buffer.append(beginningHierarchicalTransaction + "\n\n");
+		buffer.append(hierarchicalLevelList + "\n\n");
+		buffer.append(transactionSetTrailer + "\n\n");
+		buffer.append(functionalGroupTrailer + "\n\n");
+		buffer.append(interchangeControlTrailer + "\n\n");
+		
+		return buffer.toString();
 	}
 
 }
